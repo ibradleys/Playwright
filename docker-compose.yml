@@ -1,0 +1,24 @@
+services:
+
+  playwright:
+    image: mcr.microsoft.com/playwright:v1.63.0-noble
+    container_name: playwright-lab
+
+    working_dir: /work
+
+    volumes:
+      - .:/work
+      - playwright_node_modules:/work/node_modules
+
+    ports:
+      - "9323:9323"
+
+    ipc: host
+
+    stdin_open: true
+    tty: true
+
+    command: sleep infinity
+
+volumes:
+  playwright_node_modules:
