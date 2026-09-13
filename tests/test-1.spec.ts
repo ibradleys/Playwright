@@ -32,6 +32,10 @@ await expect(
   await page1.getByText('A paragraph of text').click();
   await page1.getByText('Another paragraph of text').click();
   await page1.getByRole('button', { name: 'Click Me' }).click();
+  // Intentional failure for CI debugging practice.
+await expect(
+  page1.getByText('You clicked the button!', { exact: true })
+).toHaveText('This text is intentionally wrong');
   await expect(
   page1.getByText('You clicked the button!', { exact: true })
 ).toBeVisible();
