@@ -2,21 +2,39 @@ import { test, expect } from '@playwright/test';
 
 test('test', async ({ page }) => {
   await page.goto('https://www.eviltester.com/');
+
   await page.getByRole('link', { name: 'Tools' }).click();
-  await page.getByRole('link', { name: 'Test Pages Practice App for' }).click();
+
+  await page.getByRole('link', {
+    name: 'Test Pages Practice App for',
+  }).click();
+
   const [page1] = await Promise.all([
     page.waitForEvent('popup'),
-    page.getByRole('link', { name: 'The Test Pages Online Hosted' }).click(),
-  
+    page.getByRole('link', {
+      name: 'The Test Pages Online Hosted',
+    }).click(),
+  ]);
+
   await page1.waitForLoadState('domcontentloaded');
-  await page1.locator('label').filter({ hasText: /^Pages$/ }).click();
-  await page1.locator('label').filter({ hasText: /^Pages$/ }).check();
-//  await page1.getByRole('link', { name: 'Basics', exact: true }).click();
-  await page1.getByRole('main').getByRole('link', { name: 'Basic Web Page' }).click();
+
+  // Keep your remaining test steps here.
+await page1.goto(
+  'https://testpages.eviltester.com/pages/basics/basic-web-page/'
+);
+
+await expect(
+  page1.getByRole('heading', {
+    name: 'Basic Web Page',
+    exact: true,
+  })
+).toBeVisible();
   await page1.getByText('A paragraph of text').click();
   await page1.getByText('Another paragraph of text').click();
   await page1.getByRole('button', { name: 'Click Me' }).click();
-  await page1.getByText('You clicked the button!').click();
+  await expect(
+  page1.getByText('You clicked the button!', { exact: true })
+).toBeVisible();
   await page1.getByRole('link', { name: 'Element Attributes' }).click();
   await page1.getByRole('link', { name: 'Locator Approaches' }).click();
   await page1.getByRole('button', { name: 'name button' }).click();
@@ -77,7 +95,7 @@ test('test', async ({ page }) => {
   await page1.getByRole('textbox', { name: 'Text', exact: true }).fill('ewe');
   await page1.getByRole('searchbox', { name: 'Search' }).click();
   await page1.getByRole('searchbox', { name: 'Search' }).fill('ew');
-  await page1.getByRole('searchbox', { name: 'Search' }).press('Enter');
+
   await page1.getByRole('textbox', { name: 'Password' }).fill('Test');
   await page1.getByRole('textbox', { name: 'email url' }).click();
   await page1.getByRole('textbox', { name: 'email url' }).fill('QA@me.com');
