@@ -32,6 +32,11 @@ await expect(
   await page1.getByText('A paragraph of text').click();
   await page1.getByText('Another paragraph of text').click();
   await page1.getByRole('button', { name: 'Click Me' }).click();
+
+await expect(
+  page1.getByRole('button', { name: 'Click Me', exact: true })
+).toHaveText('Click Me');
+
   await expect(
   page1.getByText('You clicked the button!', { exact: true })
 ).toBeVisible();
