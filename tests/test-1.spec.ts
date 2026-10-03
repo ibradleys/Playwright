@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('test', async ({ page }) => {
+test('Practice page interactions and form submissions', async ({ page }) => {
   await page.goto('https://www.eviltester.com/');
 
   await page.getByRole('link', { name: 'Tools' }).click();
